@@ -7,3 +7,7 @@ Welcome to the official Nutanix home dedicated to running the OpenShift Containe
 ### Install
 
  [Installation on Nutanix AOS (AHV) 5.15.6 and 5.20.1](/docs/install/manual).
+
+### Operators
+
+ [Nutanix CSI Operator](/operators/csi). 

@@ -57,13 +57,13 @@
 
   * Bootstrap
    
-     `sudo coreos-installer install /dev/sda --copy-network --ignition-url=https://host/bootstrap.ign`
+     `sudo coreos-installer install /dev/sda --copy-network --ignition-url=https://<host+path>/bootstrap.ign`
   * Control Plane
    
-     `sudo coreos-installer install /dev/sda --copy-network --ignition-url=http://host/master.ign`
+     `sudo coreos-installer install /dev/sda --copy-network --ignition-url=https://<host+path>/master.ign`
   * Compute
      
-     `coreos-installer install /dev/sda --copy-network --ignition-url=http://host/worker.ign`
+     `coreos-installer install /dev/sda --copy-network --ignition-url=https://<host+path>/worker.ign`
 
 6. After RHCOS installs, unmount the iso and reboot the VM. During the reboot, the Ignition config file is applied. 
 

@@ -38,37 +38,38 @@
         1. Specify the number of vCPUs and memory as required.
         2. Attach the RHCOS iso by cloning the uploaded image.
 
-            ![alt_text](images/attach_cdrom.png "Attach CDROM")
+            <img src="images/attach_cdrom.png" height="50%" width="50%">
  
         3. Attach an additional disk meeting the storage requirements of the VM.
 
-            ![alt_text](images/attach_disk.png "Attach Disk")
+            <img src="images/attach_disk.png" height="50%" width="50%">
 
-        4. Attach the required subnet to the VM. If this network is configured with Nutanix IPAM, choose Assign Static IP and specify the appropriate address. Note that for subnets without IPAM or DHCP (with reservation), VMs will initially require manual network configuration at boot.
+        4. Attach the required subnet to the VM. If this network is configured with IP Address Management (IPAM), choose Assign Static IP and specify the appropriate address. Note that for subnets without IPAM or DHCP (with reservation), VMs will initially require manual network configuration at boot.
 
-            ![alt_text](images/attach_subnet.png "Attach Subnet")
+            <img src="images/attach_subnet.png" height="50%" width="50%">
 
         5. Under Boot Configuration, choose Legacy BIOS Mode with Default Boot Order.
         6. Add any required Categories, choose UTC Timezone, and No Guest Customization.
+        7. Review settings and complete VM creation.
 5. From the main menu, browse to **Virtual Infrastructure → VMs**. From the List view, select each VM, power it on, and launch the console from the Action menu. Depending on the type of machine, run the following example command in the console:
 
-   **Note: The commands below assume the provisioned subnet has Nutanix IPAM or DHCP (with reservation) configured and VMs have a static IP assigned. If manual network configuration is required, follow the steps documented in OpenShift documentation ([4.6](https://docs.openshift.com/container-platform/4.6/installing/installing_bare_metal/installing-bare-metal.html#installation-user-infra-machines-static-network_installing-bare-metal)/[4.7](https://docs.openshift.com/container-platform/4.7/installing/installing_bare_metal/installing-bare-metal.html#installation-user-infra-machines-static-network_installing-bare-metal)).**
+   **Note: The commands below assume the provisioned subnet has IPAM or DHCP (with reservation) configured and VMs have a static IP assigned. If manual network configuration is required, follow the steps documented in OpenShift documentation ([4.6](https://docs.openshift.com/container-platform/4.6/installing/installing_bare_metal/installing-bare-metal.html#installation-user-infra-machines-static-network_installing-bare-metal)/[4.7](https://docs.openshift.com/container-platform/4.7/installing/installing_bare_metal/installing-bare-metal.html#installation-user-infra-machines-static-network_installing-bare-metal)).**
 
-   * Bootstrap
-         
-         `sudo coreos-installer install /dev/sda --copy-network --ignition-url=https://host/bootstrap.ign`
-   * Control Plane
-         
-         `sudo coreos-installer install /dev/sda --copy-network --ignition-url=http://host/master.ign`
-   * Compute
-         
-         `coreos-installer install /dev/sda --copy-network --ignition-url=http://host/worker.ign /dev/sda`
+  * Bootstrap
+   
+     `sudo coreos-installer install /dev/sda --copy-network --ignition-url=https://host/bootstrap.ign`
+  * Control Plane
+   
+     `sudo coreos-installer install /dev/sda --copy-network --ignition-url=http://host/master.ign`
+  * Compute
+     
+     `coreos-installer install /dev/sda --copy-network --ignition-url=http://host/worker.ign`
 
 6. After RHCOS installs, unmount the iso and reboot the VM. During the reboot, the Ignition config file is applied. 
 
 ## Creating the OpenShift Cluster
 
 1. Follow OpenShift documentation to:
-    1. Create the cluster and log into the cluster ([4.6](https://docs.openshift.com/container-platform/4.6/installing/installing_bare_metal/installing-bare-metal.html#installation-installing-bare-metal_installing-bare-metal)/[4.7](https://docs.openshift.com/container-platform/4.7/installing/installing_bare_metal/installing-bare-metal.html#installation-installing-bare-metal_installing-bare-metal)).
+    1. Create and log into the cluster ([4.6](https://docs.openshift.com/container-platform/4.6/installing/installing_bare_metal/installing-bare-metal.html#installation-installing-bare-metal_installing-bare-metal)/[4.7](https://docs.openshift.com/container-platform/4.7/installing/installing_bare_metal/installing-bare-metal.html#installation-installing-bare-metal_installing-bare-metal)).
     2. Approve certificate signing requests and watch the cluster components come online ([4.6](https://docs.openshift.com/container-platform/4.6/installing/installing_bare_metal/installing-bare-metal.html#installation-approve-csrs_installing-bare-metal)/[4.7](https://docs.openshift.com/container-platform/4.7/installing/installing_bare_metal/installing-bare-metal.html#installation-approve-csrs_installing-bare-metal)).
     3. Monitor for cluster completion ([4.6](https://docs.openshift.com/container-platform/4.6/installing/installing_bare_metal/installing-bare-metal.html#installation-complete-user-infra_installing-bare-metal)/[4.7](https://docs.openshift.com/container-platform/4.7/installing/installing_bare_metal/installing-bare-metal.html#installation-complete-user-infra_installing-bare-metal)).

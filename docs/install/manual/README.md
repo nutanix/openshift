@@ -73,3 +73,75 @@
     1. Create and log into the cluster ([4.6](https://docs.openshift.com/container-platform/4.6/installing/installing_bare_metal/installing-bare-metal.html#installation-installing-bare-metal_installing-bare-metal)/[4.7](https://docs.openshift.com/container-platform/4.7/installing/installing_bare_metal/installing-bare-metal.html#installation-installing-bare-metal_installing-bare-metal)).
     2. Approve certificate signing requests and watch the cluster components come online ([4.6](https://docs.openshift.com/container-platform/4.6/installing/installing_bare_metal/installing-bare-metal.html#installation-approve-csrs_installing-bare-metal)/[4.7](https://docs.openshift.com/container-platform/4.7/installing/installing_bare_metal/installing-bare-metal.html#installation-approve-csrs_installing-bare-metal)).
     3. Monitor for cluster completion ([4.6](https://docs.openshift.com/container-platform/4.6/installing/installing_bare_metal/installing-bare-metal.html#installation-complete-user-infra_installing-bare-metal)/[4.7](https://docs.openshift.com/container-platform/4.7/installing/installing_bare_metal/installing-bare-metal.html#installation-complete-user-infra_installing-bare-metal)).
+
+## Install the Nutanix CSI Operator (Optional)
+
+1. Follow [documentation](/operators/csi) to install the CSI Operator and provision the driver.
+
+## Provision a Nutanix Files share and modify the OpenShift Image registry configuration (Optional)
+
+1. Create a dynamicly provisioned NFS storage class yaml file like the below example and apply (`oc apply -f <filename>`).
+
+    ```
+    kind: StorageClass
+    apiVersion: storage.k8s.io/v1
+    metadata:
+      name: nutanix-files-dynamic
+    provisioner: csi.nutanix.com
+    parameters:
+      dynamicProv: ENABLED
+      nfsServerName: nfs01
+      #nfsServerName above is File Server Name in Prism without DNS suffix, not the FQDN.
+      csi.storage.k8s.io/provisioner-secret-name: ntnx-secret
+      csi.storage.k8s.io/provisioner-secret-namespace: ntnx-system
+    storageType: NutanixFiles
+    ```
+2. Create a PVC yaml file like the below example and apply in the openshift-image-registry namespace (`oc -n openshift-image-registry apply -f <filename>`).
+
+    ```
+    kind: PersistentVolumeClaim
+    apiVersion: v1
+    metadata:
+      name: image-registry-claim
+    spec:
+      accessModes:
+      - ReadWriteMany
+      resources:
+        requests:
+          storage: 100Gi
+      storageClassName: nutanix-files-dynamic
+    ```
+3. Configure OpenShift registry storage similarly to OpenShift documentation ([4.6](https://docs.openshift.com/container-platform/4.6/installing/installing_bare_metal/installing-bare-metal.html#installation-registry-storage-config_installing-bare-metal)/[4.7](https://docs.openshift.com/container-platform/4.7/installing/installing_bare_metal/installing-bare-metal.html#installation-registry-storage-config_installing-bare-metal)):
+    1. Modify the registry storage configuration:
+
+        `oc edit configs.imageregistry.operator.openshift.io`
+
+         Change the line:
+    
+         `storage: {}`
+    
+         To:
+    
+         ```
+         storage:
+           pvc:
+             claim: image-registry-claim
+         ```
+    
+         Change the line:
+    
+         `managementState: Removed`
+        
+         To:
+    
+         `managementState: Managed`
+
+         Change the line:
+     
+         `replicas: 1`
+    
+         To:
+    
+         `replicas: 2`
+
+    

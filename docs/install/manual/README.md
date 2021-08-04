@@ -157,11 +157,7 @@ For smaller Deployments running the Image Service on a ReadWriteOnce Volume prov
     
          `rolloutStrategy: Recreate`
 
-*** Note: By using a ReadWriteOnce volume you have to
-    - Change the Rollout Strategy from rolling to recreate and
-    - its only supported to have exactly one replica.
-
-That means, during a cluster or image-registry upgrade, your internal registry has downtime between stopping the old pod and starting the new pod!
+**Note: By using a ReadWriteOnce volume during a cluster or image-registry upgrade, your internal registry has downtime between stopping the old pod and starting the new pod!
 
 
 ### Provision a Nutanix Files share and modify the OpenShift Image registry configuration

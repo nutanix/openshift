@@ -74,5 +74,8 @@ In order to use this driver, create the relevant storage classes and secrets usi
     allowVolumeExpansion: true
     reclaimPolicy: Delete
     ```
+    
+If you discover error messages like "iscsiadm: can not connect to iSCSI daemon (111)!" please check if iscsid.service is running on your Master/Worker Nodes otherwise enable and start it (`sudo systemctl enable iscsid & sudo systemctl start iscsi`). Future Versions of our CSI-Driver will provide this as an option.
+     
 See the [Managing Storage section of CSI Driver documentation on the Nutanix Portal](https://portal.nutanix.com/page/documents/details?targetId=CSI-Volume-Driver-v2_3:csi-csi-plugin-storage-c.html) for more infromation on configuring storage classes. 
 

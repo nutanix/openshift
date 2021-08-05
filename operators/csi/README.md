@@ -75,7 +75,7 @@ In order to use this driver, create the relevant storage classes and secrets usi
     reclaimPolicy: Delete
     ```
     
-**Note:** By default, new RHCOS based nodes are provisioned with the required scsi-initiator-utils package installed, but with the iscsid service disabled. This can result in messages like "iscsiadm: can not connect to iSCSI daemon (111)!" When this occurs, confirm that the iscsid.service is running on worker nodes. It can be enabled and started using systemctl (`sudo systemctl enable iscsid & sudo systemctl start iscsi`).
+**Note:** By default, new RHCOS based nodes are provisioned with the required scsi-initiator-utils package installed, but with the iscsid service disabled. This can result in messages like "iscsiadm: can not connect to iSCSI daemon (111)!" When this occurs, confirm that the iscsid.service is running on worker nodes. It can be enabled and started using systemctl (`sudo systemctl enable iscsid & sudo systemctl start iscsid`).
      
 See the [Managing Storage section of CSI Driver documentation on the Nutanix Portal](https://portal.nutanix.com/page/documents/details?targetId=CSI-Volume-Driver-v2_3:csi-csi-plugin-storage-c.html) for more information on configuring storage classes. 
 

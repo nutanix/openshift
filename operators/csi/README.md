@@ -45,10 +45,9 @@ In order to use this driver, create the relevant storage classes and secrets usi
     metadata:
       name: ntnx-secret
       namespace: ntnx-system
-    data:
-      # base64 encoded prism-ip:prism-port:admin:password. 
-      # E.g.: echo -n '10.0.0.14:9440:admin:mypassword' | base64
-      key: MS4yLjMuNDo5NDQwOm51dGFuaXg6aXRpc21hZ2lj
+    stringData:
+      # prism-ip:prism-port:admin:password
+      key: 10.0.0.14:9440:admin:password
     ```
 2. Create storage class yaml like the below example and apply (`oc apply -f <filename>`).
 
@@ -75,7 +74,7 @@ In order to use this driver, create the relevant storage classes and secrets usi
     reclaimPolicy: Delete
     ```
     
-**Note:** By default, new RHCOS based nodes are provisioned with the required scsi-initiator-utils package installed, but with the iscsid service disabled. This can result in messages like "iscsiadm: can not connect to iSCSI daemon (111)!" When this occurs, confirm that the iscsid.service is running on worker nodes. It can be enabled and started using systemctl (`sudo systemctl enable iscsid & sudo systemctl start iscsid`).
+**Note:** By default, new RHCOS based nodes are provisioned with the required scsi-initiator-utils package installed, but with the iscsid service disabled. This can result in messages like "iscsiadm: can not connect to iSCSI daemon (111)!" When this occurs, confirm that the iscsid.service is running on worker nodes. It can be enabled and started globally through Machine Config Operator or on each nodes using systemctl (`sudo systemctl enable --now iscsid`).
      
 See the [Managing Storage section of CSI Driver documentation on the Nutanix Portal](https://portal.nutanix.com/page/documents/details?targetId=CSI-Volume-Driver-v2_3:csi-csi-plugin-storage-c.html) for more information on configuring storage classes. 
 

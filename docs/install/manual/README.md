@@ -157,8 +157,7 @@ For smaller Deployments running the Image Service on a ReadWriteOnce Volume prov
     
          `rolloutStrategy: Recreate`
 
-**Note: By using a ReadWriteOnce volume during a cluster or image-registry upgrade, your internal registry has downtime between stopping the old pod and starting the new pod!
-
+**Note:** Block storage volumes are supported but not recommended for use with the image registry on production clusters. An installation where the registry is configured on block storage is not highly available because the registry cannot have more than one replica. 
 
 ### Provision a Nutanix Files share and modify the OpenShift Image registry configuration
 

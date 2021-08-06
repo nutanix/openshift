@@ -79,11 +79,11 @@
 1. Follow [documentation](/operators/csi) to install the CSI Operator and provision the driver.
 
 ## OpenShift Image registry configuration (Optional)
-Based on the Requirements choose one of the following pathes:
+Based on requirements, choose one of the following options:
 
-For smaller Deployments running the Image Service on a ReadWriteOnce Volume provided by Nutanix Volumes may be sufficent. To achieve HA the Image Service Storage should be provided on a ReadWriteMany Volume, this require additional steps.
+**Note:** Block storage volumes like Nutanix Volumes with ReadWriteOnce configuration are supported but not recommended for use with the image registry on production clusters. An installation where the registry is configured on block storage is not highly available because the registry cannot have more than one replica.
 
-### Provision a Nutanix Volume share and modify the OpenShift Image registry configuration
+### Option A: Provision a Nutanix Volumes PVC and modify the OpenShift Image registry configuration
 
 1. Create storage class yaml like the below example and apply (`oc apply -f <filename>`).
 
@@ -157,11 +157,11 @@ For smaller Deployments running the Image Service on a ReadWriteOnce Volume prov
     
          `rolloutStrategy: Recreate`
 
-**Note:** Block storage volumes are supported but not recommended for use with the image registry on production clusters. An installation where the registry is configured on block storage is not highly available because the registry cannot have more than one replica. 
+**Note:** Block storage volumes like Nutanix Volumes with ReadWriteOnce configuration are supported but not recommended for use with the image registry on production clusters. An installation where the registry is configured on block storage is not highly available because the registry cannot have more than one replica. 
 
-### Provision a Nutanix Files share and modify the OpenShift Image registry configuration
+### Option B: Provision a Nutanix Files PVC and modify the OpenShift Image registry configuration
 
-  **Note: Please deploy a Nutanix Files Service which can be leveraged by the CSI-Driver
+  **Note:** The below steps assume Nutanix Files is enabled in your cluster. Files provides a highly available and massively scalable data repository for a    wide range of deployments and applications.
 
 1. Create a dynamicly provisioned NFS storage class yaml file like the below example and apply (`oc apply -f <filename>`).
 

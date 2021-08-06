@@ -116,6 +116,7 @@ Based on requirements, choose one of the following options:
     apiVersion: v1
     metadata:
       name: image-registry-claim
+      namespace: openshift-image-registry
     spec:
       accessModes:
       - ReadWriteOnce
@@ -131,7 +132,9 @@ Based on requirements, choose one of the following options:
 
          Change the line:
     
-         `storage: {}`
+         ```
+         storage: {}
+         ```
     
          To:
     
@@ -151,7 +154,7 @@ Based on requirements, choose one of the following options:
 
          Change the line:
      
-         `rolloutStrategy: Rolling`
+         `rolloutStrategy: RollingUpdate`
     
          To:
     
@@ -186,6 +189,7 @@ Based on requirements, choose one of the following options:
     apiVersion: v1
     metadata:
       name: image-registry-claim
+      namespace: openshift-image-registry
     spec:
       accessModes:
       - ReadWriteMany
@@ -201,7 +205,9 @@ Based on requirements, choose one of the following options:
 
          Change the line:
     
-         `storage: {}`
+         ```
+         storage: {}
+         ```
     
          To:
     

@@ -78,7 +78,90 @@
 
 1. Follow [documentation](/operators/csi) to install the CSI Operator and provision the driver.
 
-## Provision a Nutanix Files share and modify the OpenShift Image registry configuration (Optional)
+## OpenShift Image registry configuration (Optional)
+Based on requirements, choose one of the following options:
+
+**Note:** Block storage volumes like Nutanix Volumes with ReadWriteOnce configuration are supported but not recommended for use with the image registry on production clusters. An installation where the registry is configured on block storage is not highly available because the registry cannot have more than one replica.
+
+### Option A: Provision a Nutanix Volumes PVC and modify the OpenShift Image registry configuration
+
+1. Create storage class yaml like the below example and apply (`oc apply -f <filename>`).
+
+    ```
+    kind: StorageClass
+    apiVersion: storage.k8s.io/v1
+    metadata:
+      name: nutanix-volume
+    provisioner: csi.nutanix.com
+    parameters:
+      csi.storage.k8s.io/provisioner-secret-name: ntnx-secret
+      csi.storage.k8s.io/provisioner-secret-namespace: ntnx-system
+      csi.storage.k8s.io/node-publish-secret-name: ntnx-secret
+      csi.storage.k8s.io/node-publish-secret-namespace: ntnx-system
+      csi.storage.k8s.io/controller-expand-secret-name: ntnx-secret
+      csi.storage.k8s.io/controller-expand-secret-namespace: ntnx-system
+      csi.storage.k8s.io/fstype: ext4
+      dataServiceEndPoint: 10.0.0.15:3260
+      storageContainer: default-container
+      storageType: NutanixVolumes
+      #whitelistIPMode: ENABLED
+      #chapAuth: ENABLED
+    allowVolumeExpansion: true
+    reclaimPolicy: Delete
+    ```
+2. Create a PVC yaml file like the below example and apply in the openshift-image-registry namespace (`oc -n openshift-image-registry apply -f <filename>`).
+
+    ```
+    kind: PersistentVolumeClaim
+    apiVersion: v1
+    metadata:
+      name: image-registry-claim
+    spec:
+      accessModes:
+      - ReadWriteOnce
+      resources:
+        requests:
+          storage: 100Gi
+      storageClassName: nutanix-volume
+    ```
+3. Configure OpenShift registry storage similarly to OpenShift documentation ([4.6](https://docs.openshift.com/container-platform/4.6/installing/installing_bare_metal/installing-bare-metal.html#installation-registry-storage-config_installing-bare-metal)/[4.7](https://docs.openshift.com/container-platform/4.7/installing/installing_bare_metal/installing-bare-metal.html#installation-registry-storage-config_installing-bare-metal)):
+    1. Modify the registry storage configuration:
+
+        `oc edit configs.imageregistry.operator.openshift.io`
+
+         Change the line:
+    
+         `storage: {}`
+    
+         To:
+    
+         ```
+         storage:
+           pvc:
+             claim: image-registry-claim
+         ```
+    
+         Change the line:
+    
+         `managementState: Removed`
+        
+         To:
+    
+         `managementState: Managed`
+
+         Change the line:
+     
+         `rolloutStrategy: Rolling`
+    
+         To:
+    
+         `rolloutStrategy: Recreate`
+
+**Note:** Block storage volumes like Nutanix Volumes with ReadWriteOnce configuration are supported but not recommended for use with the image registry on production clusters. An installation where the registry is configured on block storage is not highly available because the registry cannot have more than one replica. 
+
+### Option B: Provision a Nutanix Files PVC and modify the OpenShift Image registry configuration
+
+  **Note:** The below steps assume Nutanix Files is enabled in your cluster. Files provides a highly available and massively scalable data repository for a    wide range of deployments and applications.
 
 1. Create a dynamicly provisioned NFS storage class yaml file like the below example and apply (`oc apply -f <filename>`).
 

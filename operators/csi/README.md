@@ -46,7 +46,7 @@ In order to use this driver, create the relevant storage classes and secrets usi
       name: ntnx-secret
       namespace: ntnx-system
     stringData:
-      # prism-ip:prism-port:admin:password
+      # prism-element-ip:prism-port:admin:password
       key: 10.0.0.14:9440:admin:password
     ```
 2. Create storage class yaml like the below example and apply (`oc apply -f <filename>`).

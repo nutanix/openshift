@@ -13,6 +13,7 @@ There are two Deployment-Scenarios (Same Stage 1 Provisioning VM but different S
 ## Use existing Microsoft AD DNS Server
   - Parameter DNS SERVER should point to an existing MS AD DNS Server
   - Use OCP-Cluster-4-7-AD as Blueprint Parameter
+  
   **Note: Reverse Lookup-Zone MUST exist within MS AD, otherwise there will be an error when creating DNS-Entries. Will be fixed in next Push.
 ### Getting Started
 1. Import needed Blueprints (OCP-ProvisioningVM.json and OCP-Cluster-4-7/OCP-Cluster-4-7-AD)

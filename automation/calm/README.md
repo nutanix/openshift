@@ -4,32 +4,48 @@ Stage 1 is to deploy a Provisioning VM which fetches resources from Redhat (or a
 
 Note that creating a cluster needs the following requirements:
   - IPAM-enabled Subnet with Internet-Access
+  - existing DNS-Server (with possibility to run comands against it, like PoSH for MS AD or 'samba-tool dns')
+  - optionally an existing Loadbalancer (with possibility to run comands against it, like RestAPI), a basic HAProxy is part of Stage2 Blueprint
+  - For Running Powershell-Scripts against the Microsoft DNS it is mandantory to create a Runbook-Endpoint which is able to connect against your Environment.
+
+    <img src="../docs/images/calm_endpoint.png" height="50%" width="50%">
 
 ### Deployment Scenarios
 There are two Deployment-Scenarios (Same Stage 1 Provisioning VM but different Stage2 Blueprint)
-## Deploy new DNS-Server along with Loadbalancer
-  - Parameter DNS SERVER should point to an upstream DNS
-  - Use OCP-Cluster-4-7 as Blueprint Parameter
-## Use existing Microsoft AD DNS Server
-  - Parameter DNS SERVER should point to an existing MS AD DNS Server
-  - Use OCP-Cluster-4-7-AD as Blueprint Parameter
+## MasterOnly Openshift Cluster
+  - Set Number of Workers to Zero, use OCP-MasterOnly as Blueprint Parameter
+## Master+Worker Openshift Cluster
+  - Set Number of Workers to 2+, use OCP-MasterWorker as Blueprint Parameter
+
+  This Blueprint offers also ScaleOut/ScaleIn as Day2-Action. This is still work in Progress, please keep in mind that actually there is no Cordon/Draining of Nodes when ScaleIn.
   
-  **Note: Reverse Lookup-Zone MUST exist within MS AD, otherwise there will be an error when creating DNS-Entries. Will be fixed in next Push.
+### Customize DNS / LoadBalancer Integration
+The Stage2 Blueprints contains custom Actions in Bootstrap/Master/Worker(if used) Services. 
+
+  <img src="../docs/images/calm_customactions.png" height="50%" width="50%">
+
+By default a HAProxy is installed on LB_DNS-Service where the Services register into (and remove when doing a ScaleIn). You can replace the Code inside of these Actions if you want to use RestAPI against somekind of 3rd Party LoadBalancer as example.
+There are also Actions for Register/Remove DNS-Entries which can be modified to fit into your environment.
+
 ### Getting Started
-1. Import needed Blueprints (OCP-ProvisioningVM.json and OCP-Cluster-4-7/OCP-Cluster-4-7-AD)
-2. Within OCP-ProvisioningVM-Blueprint select a valid Subnet for the VM
+1. Create Endpoint for Powershell-Actions against DNS
+2. Import needed Blueprints (OCP-ProvisioningVM.json and OCP-MasterOnly/OCP-MasterWorker)
+3. Within OCP-ProvisioningVM-Blueprint select a valid Subnet for the VM
     Note: Stage 2 Blueprint receives it Subnet for the VMs from Stage 1
-3. Store a RSA-Private Key on both Blueprints within CREDENTIALS->CRED->Private Key
-   When using AD-Blueprint please also provide AD-User Credentials
-4. Deploy OCP-ProvisioningVM as a new App
-5. After successful Deployment you can run "Deploy OCP" as Action from within the App
+4. Store a RSA-Private Key on both Blueprints within CREDENTIALS->CRED->Private Key
+5. Assign previously created Endpoint to Register/RemoveDNS-Actions in Stage2 Blueprint Bootstrap/Master/Worker(if used) Services
+
+  <img src="../docs/images/calm_assignendpoint.png" height="50%" width="50%">
+
+5. Deploy OCP-ProvisioningVM as a new App
+6. After successful Deployment you can run "Deploy OCP" as Action from within the App
    At least change the following Start-Parameters:
+   - Number of Worker
    - OCP_PULL_SECRET
    - BASE_DOMAIN
-   - OCP_SUBDOMAIN (lower-letter)
+   - OCP_SUBDOMAIN (lower-letter, DNS-compliant)
    - OCP_MACHINE_NETWORK
-   - DNS SERVER (see Notes regarding different Deployment Scenarios)
-
+ 
 ## Logging into Openshift Console
 After succesfull deployment the auto-created Login-Information are accessible via Audit-Log->Create->OS_Status_Check Start->Show Login Information
 

@@ -8,7 +8,7 @@ Note that creating a cluster needs the following requirements:
   - optionally an existing Loadbalancer (with possibility to run comands against it, like RestAPI), a basic HAProxy is part of Stage2 Blueprint
   - For Running Powershell-Scripts against the Microsoft DNS it is mandantory to create a Runbook-Endpoint which is able to connect against your Environment.
 
-    <img src="../../docs/images/calm_endpoint.png" height="50%" width="50%">
+    <img src="../../docs/install/manual/images/calm_endpoint.png" height="50%" width="50%">
 
 ### Deployment Scenarios
 There are two Deployment-Scenarios (Same Stage 1 Provisioning VM but different Stage2 Blueprint)
@@ -22,7 +22,7 @@ There are two Deployment-Scenarios (Same Stage 1 Provisioning VM but different S
 ### Customize DNS / LoadBalancer Integration
 The Stage2 Blueprints contains custom Actions in Bootstrap/Master/Worker(if used) Services. 
 
-  <img src="../../docs/images/calm_customactions.png" height="50%" width="50%">
+  <img src="../../docs/install/manual/images/calm_customactions.png" height="50%" width="50%">
 
 By default a HAProxy is installed on LB_DNS-Service where the Services register into (and remove when doing a ScaleIn). You can replace the Code inside of these Actions if you want to use RestAPI against somekind of 3rd Party LoadBalancer as example.
 There are also Actions for Register/Remove DNS-Entries which can be modified to fit into your environment.
@@ -35,7 +35,7 @@ There are also Actions for Register/Remove DNS-Entries which can be modified to 
 4. Store a RSA-Private Key on both Blueprints within CREDENTIALS->CRED->Private Key
 5. Assign previously created Endpoint to Register/RemoveDNS-Actions in Stage2 Blueprint Bootstrap/Master/Worker(if used) Services
 
-  <img src="../../docs/images/calm_assignendpoint.png" height="50%" width="50%">
+  <img src="../../docs/install/manual/images/calm_assignendpoint.png" height="50%" width="50%">
 
 5. Deploy OCP-ProvisioningVM as a new App
 6. After successful Deployment you can run "Deploy OCP" as Action from within the App

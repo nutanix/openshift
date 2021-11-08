@@ -1,6 +1,6 @@
 # Red Hat OpenShift Container Platform Manual Installation on Nutanix AOS (AHV)
 
-**Note: Red Hat OpenShift Container Platform versions 4.6 and 4.7 have been tested for specific compatibility on Nutanix AOS 5.15.6 and 5.20.1.**
+**Note: Red Hat OpenShift Container Platform versions 4.6, 4.7, and 4.8 have been tested for specific compatibility on Nutanix AOS 5.15.6 and 5.20.1.**
 
 ## Installation Prerequisites
 

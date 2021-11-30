@@ -18,7 +18,7 @@ With Nutanix CSI Provider you can:
 
 ### Installing the Operator
 
-1. Follow OpenShift documentation for Adding Operators to a cluster ([4.6](https://docs.openshift.com/container-platform/4.6/operators/admin/olm-adding-operators-to-cluster.html)/[4.7](https://docs.openshift.com/container-platform/4.7/operators/admin/olm-adding-operators-to-cluster.html)/[4.8](https://docs.openshift.com/container-platform/4.8/operators/admin/olm-adding-operators-to-cluster.html)).
+1. Follow OpenShift documentation for Adding Operators to a cluster ([documentation](https://docs.openshift.com/container-platform/4.8/operators/admin/olm-adding-operators-to-cluster.html)).
     1. Filter by the keyword "Nutanix" to find the CSI Operator.
 
         <image src=images/operatorhub-csi.png height="50%" width="50%">

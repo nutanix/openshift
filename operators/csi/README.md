@@ -78,3 +78,11 @@ In order to use this driver, create the relevant storage classes and secrets usi
      
 See the [Managing Storage section of CSI Driver documentation on the Nutanix Portal](https://portal.nutanix.com/page/documents/details?targetId=CSI-Volume-Driver-v2_3:csi-csi-plugin-storage-c.html) for more information on configuring storage classes. 
 
+### Using Nutanix CSI Operator on restricted networks
+
+For OpenShift Container Platform clusters that are installed on restricted networks, also known as disconnected clusters, Operator Lifecycle Manager (OLM) by default cannot access the Red Hat-provided OperatorHub sources hosted on remote registries because those remote sources require full internet connectivity.
+
+The Nutanix CSI Operator is fully compatible with the restricted networks architecture and support to be used in disconnected mode.
+You just need to follow the [official RedHat documentation](https://docs.openshift.com/container-platform/4.9/operators/admin/olm-restricted-networks.html).
+
+You need to mirror the `certified-operator-index` and keep the `nutanixcsioperator` package in your pruned index.

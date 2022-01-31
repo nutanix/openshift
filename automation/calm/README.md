@@ -1,3 +1,6 @@
+### 01/31/22 Actual Information
+As the used Centos8 Image in this Blueprint is now depricated we needed to switch to an acutal CentosStream Image. If you are seeing Deployment-Errors please use latest Blueprints or replace Centos8 URI in Image Configuration
+
 ## Using these Blueprints
 This Set of Calm Blueprints is used to deploy an OpenShift Cluster on Nutanix AHV.
 Stage 1 is to deploy a Provisioning VM which fetches resources from Redhat (or an internal Web Service). The Provisioning VM offers an Action to deploy the actual OCP Cluster by collecting all neccessary information and running the Stage 2 Blueprint

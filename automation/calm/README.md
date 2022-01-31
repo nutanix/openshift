@@ -1,48 +1,47 @@
 ### 01/31/22 Actual Information
-As the used Centos8 Image in this Blueprint is now depricated we needed to switch to an acutal CentosStream Image. If you are seeing Deployment-Errors please use latest Blueprints or replace Centos8 URI in Image Configuration
+We are switching to a new Deployment Strategy which only uses a Single Blueprint to make the Deployment even more simpler.
+Find the old 2-Stage BPs in this Folder:
+[a relative link](2-stageBP/README.md)
 
-## Using these Blueprints
-This Set of Calm Blueprints is used to deploy an OpenShift Cluster on Nutanix AHV.
-Stage 1 is to deploy a Provisioning VM which fetches resources from Redhat (or an internal Web Service). The Provisioning VM offers an Action to deploy the actual OCP Cluster by collecting all neccessary information and running the Stage 2 Blueprint
+## Using the Blueprint
+This Blueprint is used to deploy an OpenShift Cluster on Nutanix AHV.
 
 Note that creating a cluster needs the following requirements:
   - IPAM-enabled Subnet with Internet-Access
-  - existing DNS-Server (with possibility to run comands against it, like PoSH for MS AD or 'samba-tool dns')
-  - optionally an existing Loadbalancer (with possibility to run comands against it, like RestAPI), a basic HAProxy is part of Stage2 Blueprint
-  - For Running Powershell-Scripts against the Microsoft DNS it is mandantory to create a Runbook-Endpoint which is able to connect against your Environment.
+  - Static IP for our Bastion (which runs HAProxy and dnsmasq)
+  - existing DNS-Server (with possibility to create a DNS-Delegation for the Subdomain we are creating)
+  - access to RHCOS Image (this is only available .gz compressed and needs to be extracted and imported before running the Blueprint)
 
-    <img src="../../docs/install/manual/images/calm_endpoint.png" height="50%" width="50%">
+## Caution
+This Blueprints uses an RHCOS-Openstack Base Image. Running Openstack-Images on any Platform is not supported, so do not use this in Production environment. With upcomming Openshift 4.10 there will be a dedicated Nutanix Image.
+    
+### Prequisite: DNS Settings
+Before running the Blueprint please create a NS-Record or DNS-Delegation for the desired OCP-Subdomain. The Delegation Target-IP is used as Bastion-IP in our Blueprint.
 
-### Deployment Scenarios
-There are two Deployment-Scenarios (Same Stage 1 Provisioning VM but different Stage2 Blueprint)
-## MasterOnly Openshift Cluster
-  - Set Number of Workers to Zero, use OCP-MasterOnly as Blueprint Parameter
-## Master+Worker Openshift Cluster
-  - Set Number of Workers to 2+, use OCP-MasterWorker as Blueprint Parameter
+As example when using Microsoft DNS run a command like this example:
 
-  This Blueprint offers also ScaleOut/ScaleIn as Day2-Action. This is still work in Progress, please keep in mind that actually there is no Cordon/Draining of Nodes when ScaleIn.
-  
-### Customize DNS / LoadBalancer Integration
-The Stage2 Blueprints contains custom Actions in Bootstrap/Master/Worker(if used) Services. 
+```
+Add-DnsServerZoneDelegation -Name "ntnxlab.local" -Nameserver "lbdns-ocp1.ntnxlab.local" -ChildZoneName "ocp1" -IPAddress 10.42.26.11 -PassThru -Verbose
 
-  <img src="../../docs/install/manual/images/calm_customactions.png" height="50%" width="50%">
+```
 
+### Prequisite: RHCOS Image
+Please import the following QCOW2 image into the Nutanix AHV cluster :
+RHCOS OpenStack image (ex: https://mirror.openshift.com/pub/openshift-v4/dependencies/rhcos/4.9/latest/rhcos-4.9.0-x86_64-openstack.x86_64.qcow2.gz)
+If you import it manually please assign the Image to the three Services (Bootstrap, Master, Worker).
+As an Alternative you can provide access to the Image via HTTP and configure the URI in CONFIGURATION->DOWNLOADABLE IMAGE CONFIGURATION->RHCOS->Source URI
+(Important: the pre-configured path needs to be changed when running the Blueprint outside of NTNX-Environments)
+### Customization (HAProxy/DNS)
 By default a HAProxy is installed on LB_DNS-Service where the Services register into (and remove when doing a ScaleIn). You can replace the Code inside of these Actions if you want to use RestAPI against somekind of 3rd Party LoadBalancer as example.
 There are also Actions for Register/Remove DNS-Entries which can be modified to fit into your environment.
 
 ### Getting Started
-1. Create Endpoint for Powershell-Actions against DNS
-2. Import needed Blueprints (OCP-ProvisioningVM.json and OCP-MasterOnly/OCP-MasterWorker)
-3. Within OCP-ProvisioningVM-Blueprint select a valid Subnet for the VM
-    Note: Stage 2 Blueprint receives it Subnet for the VMs from Stage 1
-4. Store a RSA-Private Key on both Blueprints within CREDENTIALS->CRED->Private Key
-5. Assign previously created Endpoint to Register/RemoveDNS-Actions in Stage2 Blueprint Bootstrap/Master/Worker(if used) Services
-
-  <img src="../../docs/install/manual/images/calm_assignendpoint.png" height="50%" width="50%">
-
-5. Deploy OCP-ProvisioningVM as a new App
-6. After successful Deployment you can run "Deploy OCP" as Action from within the App
-   At least change the following Start-Parameters:
+1. Import  Blueprint
+2. Within the Blueprint select a valid Subnet for all VMs
+3. Store a RSA-Private Key within CREDENTIALS->CRED->Private Key
+4. Deploy Blueprint as new App
+5. provide at least the following Start-Parameters:
+   - IP of your Bastion VM (this is the Target-IP from your DNS-Delegation)
    - Number of Worker
    - OCP_PULL_SECRET
    - BASE_DOMAIN

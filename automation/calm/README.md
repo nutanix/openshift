@@ -3,12 +3,16 @@ We are switching to a new Deployment Strategy which only uses a Single Blueprint
 Find the old 2-Stage BPs in this Folder:
 [a relative link](2-stageBP/README.md)
 
+IMPORTANT: This new Blueprint uses a Openstack-Image which is not supported by RedHat on Nutanix. Using this Blueprint will deploy a Cluster who is not supported by RedHat. This will change as soon there is a dedicated Nutanix Image.
+If you need a RedHat-supported Cluster use the 2-Stage BP as this is based on the Platform-agnostic-Install Process.
+
+
 ## Using the Blueprint
 This Blueprint is used to deploy an OpenShift Cluster on Nutanix AHV.
 
 Note that creating a cluster needs the following requirements:
-  - IPAM-enabled Subnet with Internet-Access
-  - Static IP for our Bastion (which runs HAProxy and dnsmasq)
+  - IPAM-enabled Subnet with Internet-Access and configured IP-Pool for the VMs.
+  - Static IP for our Bastion (which runs HAProxy and dnsmasq), must be outside of the IP-Pool.
   - existing DNS-Server (with possibility to create a DNS-Delegation for the Subdomain we are creating)
   - access to RHCOS Image (this is only available .gz compressed and needs to be extracted and imported before running the Blueprint)
 

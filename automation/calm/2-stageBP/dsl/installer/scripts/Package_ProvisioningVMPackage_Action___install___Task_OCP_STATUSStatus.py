@@ -1,0 +1,1 @@
+print "OCP_STATUS=bootstrap finished"

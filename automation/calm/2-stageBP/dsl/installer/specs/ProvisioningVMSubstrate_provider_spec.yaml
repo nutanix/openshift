@@ -1,0 +1,2 @@
+address: '@@{LBDNS.address}@@'
+type: PROVISION_EXISTING_MACHINE

@@ -1,0 +1,1 @@
+print 'BOOTSTRAP_STATUS=Done'

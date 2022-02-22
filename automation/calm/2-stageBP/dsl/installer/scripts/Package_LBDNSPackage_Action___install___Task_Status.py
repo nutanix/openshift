@@ -1,0 +1,1 @@
+print 'ST=@@{OPENSHIFT_SUBDOMAIN}@@'

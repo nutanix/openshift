@@ -1,0 +1,7 @@
+|-
+#cloud-config
+users:
+  - name: @@{CRED.username}@@
+    ssh-authorized-keys:
+      - @@{CRED.public_key}@@
+    sudo: ['ALL=(ALL) NOPASSWD:ALL']

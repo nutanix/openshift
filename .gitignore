@@ -1,2 +1,11 @@
 .local/
 .DS_Store
+.devcontainer
+.vscode
+.calm
+__pycache__
+*.pyc
+venv
+secrets
+.local
+requirements.txt

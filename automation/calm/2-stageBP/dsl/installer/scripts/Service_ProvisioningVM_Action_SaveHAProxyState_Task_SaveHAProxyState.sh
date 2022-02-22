@@ -1,0 +1,1 @@
+echo "show servers state" | socat stdio tcp4-connect:127.0.0.1:9999 | sudo tee /etc/haproxy/server_state

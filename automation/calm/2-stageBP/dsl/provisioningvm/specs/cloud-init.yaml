@@ -1,0 +1,12 @@
+|-
+#cloud-config
+users:
+  - name: @@{CRED.username}@@
+    ssh-authorized-keys:
+      - @@{CRED.public_key}@@
+    sudo: ['ALL=(ALL) NOPASSWD:ALL']
+write_files:
+  - path: /etc/NetworkManager/conf.d/90-dns-none.conf
+    content: |
+      [main]
+      dns=none

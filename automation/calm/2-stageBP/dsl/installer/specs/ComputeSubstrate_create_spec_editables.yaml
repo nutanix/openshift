@@ -1,0 +1,7 @@
+resources:
+  disk_list:
+    '1':
+      disk_size_mib: true
+  nic_list:
+    '0':
+      subnet_reference: true

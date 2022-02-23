@@ -68,7 +68,6 @@ frontend openshift-api-server
     option tcplog
 
 backend openshift-api-server
-    balance source
     mode tcp
     server-template controlplane 0-2 localhost:6443 check disabled
     server bootstrap localhost:6443 check

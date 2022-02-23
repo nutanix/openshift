@@ -65,7 +65,7 @@ class LBDNS(Service):
     )
 
 
-class ProvisioningVM(Service):
+class Installer(Service):
 
     OCP_STATUS = CalmVariable.Simple(
         "", label="", is_mandatory=False, is_hidden=False, runtime=False, description=""
@@ -79,9 +79,9 @@ class ProvisioningVM(Service):
             name="Show Login Information",
             filename=os.path.join(
                 "scripts",
-                "Service_ProvisioningVM_Action___start___Task_ShowLoginInformation.py",
+                "Service_Installer_Action___start___Task_ShowLoginInformation.py",
             ),
-            target=ref(ProvisioningVM),
+            target=ref(Installer),
         )
 
     @action
@@ -91,9 +91,9 @@ class ProvisioningVM(Service):
             name="Remove Bootstrap from LoadBalancer",
             filename=os.path.join(
                 "scripts",
-                "Service_ProvisioningVM_Action_RemoveBootstrapfromLoadBalancer_Task_RemoveBootstrapfromLoadBalancer.sh",
+                "Service_Installer_Action_RemoveBootstrapfromLoadBalancer_Task_RemoveBootstrapfromLoadBalancer.sh",
             ),
-            target=ref(ProvisioningVM),
+            target=ref(Installer),
         )
 
     @action
@@ -103,9 +103,9 @@ class ProvisioningVM(Service):
             name="Save HAProxy State",
             filename=os.path.join(
                 "scripts",
-                "Service_ProvisioningVM_Action_SaveHAProxyState_Task_SaveHAProxyState.sh",
+                "Service_Installer_Action_SaveHAProxyState_Task_SaveHAProxyState.sh",
             ),
-            target=ref(ProvisioningVM),
+            target=ref(Installer),
         )
 
 
@@ -274,12 +274,12 @@ class LBDNSSubstrate(Substrate):
         )
 
 
-class ProvisioningVMSubstrate(Substrate):
+class InstallerSubstrate(Substrate):
 
     os_type = "Linux"
     provider_type = "EXISTING_VM"
     provider_spec = read_provider_spec(
-        os.path.join("specs", "ProvisioningVMSubstrate_provider_spec.yaml")
+        os.path.join("specs", "InstallerSubstrate_provider_spec.yaml")
     )
 
     readiness_probe = readiness_probe(
@@ -587,9 +587,9 @@ class LBDNSPackage(Package):
         )
 
 
-class ProvisioningVMPackage(Package):
+class InstallerPackage(Package):
 
-    services = [ref(ProvisioningVM)]
+    services = [ref(Installer)]
 
     @action
     def __install__():
@@ -598,48 +598,48 @@ class ProvisioningVMPackage(Package):
             name="Prepare Install",
             filename=os.path.join(
                 "scripts",
-                "Package_ProvisioningVMPackage_Action___install___Task_PrepareInstall.sh",
+                "Package_InstallerPackage_Action___install___Task_PrepareInstall.sh",
             ),
             cred=ref(BP_CRED_CRED),
-            target=ref(ProvisioningVM),
+            target=ref(Installer),
         )
         CalmTask.Exec.ssh(
             name="Prepare Openshift Install",
             filename=os.path.join(
                 "scripts",
-                "Package_ProvisioningVMPackage_Action___install___Task_PrepareOpenshiftInstall.sh",
+                "Package_InstallerPackage_Action___install___Task_PrepareOpenshiftInstall.sh",
             ),
-            target=ref(ProvisioningVM),
+            target=ref(Installer),
         )
         CalmTask.SetVariable.escript(
             name="OCP_STATUS Status",
             filename=os.path.join(
                 "scripts",
-                "Package_ProvisioningVMPackage_Action___install___Task_OCP_STATUSStatus.py",
+                "Package_InstallerPackage_Action___install___Task_OCP_STATUSStatus.py",
             ),
-            target=ref(ProvisioningVM),
+            target=ref(Installer),
             variables=["OCP_STATUS"],
         )
-        ProvisioningVM.RemoveBootstrapfromLoadBalancer(
+        Installer.RemoveBootstrapfromLoadBalancer(
             name="Remove Bootstrap from LoadBalancer"
         )
         CalmTask.Exec.ssh(
             name="AutoAproval CSR",
             filename=os.path.join(
                 "scripts",
-                "Package_ProvisioningVMPackage_Action___install___Task_AutoAprovalCSR.sh",
+                "Package_InstallerPackage_Action___install___Task_AutoAprovalCSR.sh",
             ),
-            target=ref(ProvisioningVM),
+            target=ref(Installer),
         )
         CalmTask.Exec.ssh(
             name="Finish Openshift Install",
             filename=os.path.join(
                 "scripts",
-                "Package_ProvisioningVMPackage_Action___install___Task_FinishOpenshiftInstall.sh",
+                "Package_InstallerPackage_Action___install___Task_FinishOpenshiftInstall.sh",
             ),
-            target=ref(ProvisioningVM),
+            target=ref(Installer),
         )
-        ProvisioningVM.SaveHAProxyState(name="Save HAProxy State")
+        Installer.SaveHAProxyState(name="Save HAProxy State")
 
 
 class BootstrapPackage(Package):
@@ -752,9 +752,9 @@ class ComputePackage(Package):
         )
 
 
-class _8ff9c0f1_deployment(Deployment):
+class LBDNSDeployment(Deployment):
 
-    name = "8ff9c0f1_deployment"
+    name = "LBDNSDeployment"
     min_replicas = "1"
     max_replicas = "1"
     default_replicas = "1"
@@ -763,14 +763,14 @@ class _8ff9c0f1_deployment(Deployment):
     substrate = ref(LBDNSSubstrate)
 
 
-class ProvisioningVMDeployment(Deployment):
+class InstallerDeployment(Deployment):
 
     min_replicas = "1"
     max_replicas = "1"
     default_replicas = "1"
 
-    packages = [ref(ProvisioningVMPackage)]
-    substrate = ref(ProvisioningVMSubstrate)
+    packages = [ref(InstallerPackage)]
+    substrate = ref(InstallerSubstrate)
 
 
 class BootstrapDeployment(Deployment):
@@ -785,7 +785,7 @@ class BootstrapDeployment(Deployment):
 
 class ControlPlaneDeployment(Deployment):
 
-    name = "9df14f84_deployment"
+    name = "ControlPlaneDeployment"
     min_replicas = "3"
     max_replicas = "3"
     default_replicas = "3"
@@ -796,7 +796,7 @@ class ControlPlaneDeployment(Deployment):
 
 class ComputeDeployment(Deployment):
 
-    name = "4aff8c30_deployment"
+    name = "ComputeDeployment"
     min_replicas = "2"
     max_replicas = "99"
     default_replicas = "@@{COMPUTE_NODES}@@"
@@ -810,8 +810,8 @@ class ControlPlaneCompute(Profile):
     deployments = [
         BootstrapDeployment,
         ControlPlaneDeployment,
-        _8ff9c0f1_deployment,
-        ProvisioningVMDeployment,
+        LBDNSDeployment,
+        InstallerDeployment,
         ComputeDeployment,
     ]
 
@@ -890,7 +890,7 @@ class ControlPlaneCompute(Profile):
                 "Profile_ControlPlaneCompute_Action_DeployCSI_Task_DeployCSIDriver.sh",
             ),
             cred=ref(BP_CRED_CRED),
-            target=ref(ProvisioningVM),
+            target=ref(Installer),
         )
 
     @action
@@ -919,7 +919,7 @@ class ControlPlaneCompute(Profile):
                 "Profile_ControlPlaneCompute_Action_EnableImageRegistry_Task_EnableImageRegistry.sh",
             ),
             cred=ref(BP_CRED_CRED),
-            target=ref(ProvisioningVM),
+            target=ref(Installer),
         )
 
     @action
@@ -940,7 +940,7 @@ class ControlPlaneCompute(Profile):
             name="Scale Out Compute nodes",
             target=ref(ComputeDeployment),
         )
-        ProvisioningVM.SaveHAProxyState(name="Save HAProxy State")
+        Installer.SaveHAProxyState(name="Save HAProxy State")
 
     @action
     def ScaleIn(name="Scale In"):
@@ -958,26 +958,26 @@ class ControlPlaneCompute(Profile):
         CalmTask.Scaling.scale_in(
             "@@{SCALEIN_COMPUTE}@@", name="Scale In", target=ref(ComputeDeployment)
         )
-        ProvisioningVM.SaveHAProxyState(name="Save HAProxy State")
+        Installer.SaveHAProxyState(name="Save HAProxy State")
 
 
 class OCPInstaller(Blueprint):
 
-    services = [Bootstrap, ControlPlane, LBDNS, ProvisioningVM, Compute]
+    services = [Bootstrap, ControlPlane, LBDNS, Installer, Compute]
     packages = [
         BootstrapPackage,
         OpenshiftC8,
         ControlPlanePackage,
         LBDNSPackage,
         RHCOS_BOOTSTRAP,
-        ProvisioningVMPackage,
+        InstallerPackage,
         ComputePackage,
     ]
     substrates = [
         BootstrapSubstrate,
         ControlPlaneSubstrate,
         LBDNSSubstrate,
-        ProvisioningVMSubstrate,
+        InstallerSubstrate,
         ComputeSubstrate,
     ]
     profiles = [ControlPlaneCompute]

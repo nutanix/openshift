@@ -239,11 +239,27 @@ Based on requirements, choose one of the following options:
   **Note:** The below steps assume Nutanix Objects is enabled in your cluster. Objects provides a highly available and massively scalable S3-compatible Object Store.
 
 **Prerequisite:**
-- Assign a trusted SSL-Certificate to your Objects-Store which contains SAN for the used DNS-Name or IP-SAN if no DNS is used
+
 - Create a Bucket used for the Image-Service
 - Create and assign a User with R/W Access to the Bucket
+- Download SSL CA Cert from Nutanix Object Store
 
-1. Create a Secret containing the S3 Credentials:
+Optional:
+- Assign a trusted SSL-Certificate to your Objects-Store which contains SAN for the used DNS-Name or IP-SAN if no DNS is used
+
+1. Add Nutanix Objects CA Certificate to OpenShift (only needed if not using trusted Cert)
+
+    ```
+    oc create configmap custom-ca \
+      --from-file=ca-bundle.crt=objectca.crt \
+      -n openshift-config
+
+    oc patch proxy/cluster \
+      --type=merge \
+      --patch='{"spec":{"trustedCA":{"name":"custom-ca"}}}'
+    ```
+
+2. Create a Secret containing the S3 Credentials:
 
     ```
     oc create secret generic image-registry-private-configuration-user \

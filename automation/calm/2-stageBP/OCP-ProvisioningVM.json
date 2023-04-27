@@ -382,7 +382,7 @@
                         "description": "",
                         "resources": {
                             "image_type": "DISK_IMAGE",
-                            "source_uri": "https://images.rdoproject.org/CentOS-Stream-GenericCloud-8-20210603.0.x86_64.qcow2",
+                            "source_uri": "https://cloud.centos.org/centos/8-stream/x86_64/images/CentOS-Stream-GenericCloud-8-20230424.0.x86_64.qcow2",
                             "architecture": "X86_64",
                             "version": {
                                 "product_version": "1.0.0",

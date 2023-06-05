@@ -586,12 +586,12 @@
                         },
                         {
                             "name": "OCP_VERSION",
-                            "description": "OpenShift version: 4.12 requires AOS versions 5.20.4+ or 6.5.1+ and Prism Central version 2022.4+",
+                            "description": "OpenShift version: 4.8 and later requires AOS 5.20.2+ or 6.0.1+ || 4.7 and before requires 5.20+ or 5.15.6+",
                             "type": "LOCAL",
                             "label": "OpenShift version",
                             "attrs": {},
                             "val_type": "STRING",
-                            "value": "4.12",
+                            "value": "4.9",
                             "data_type": "BASE",
                             "editables": {
                                 "value": true
@@ -599,11 +599,10 @@
                             "options": {
                                 "type": "PREDEFINED",
                                 "choices": [
-
-                                    "4.12",
-                                    "4.11",
-                                    "4.10",
-                                    "4.9"
+                                    "4.9",
+                                    "4.8",
+                                    "4.7",
+                                    "4.6"
                                 ]
                             },
                             "is_hidden": false,
@@ -865,12 +864,12 @@
                                     },
                                     {
                                         "name": "OCP_MACHINE_NETWORK",
-                                        "description": "This is the AHV network subnet where OpenShift virtual machines will be deployed (format x.x.x.x/x)",
+                                        "description": "This is the network subnet where OpenShift virtual machines will be deployed (format x.x.x.x/x)",
                                         "type": "LOCAL",
                                         "label": "Virtual machine network subnet",
                                         "attrs": {},
                                         "val_type": "STRING",
-                                        "value": "x.x.x.x/x",
+                                        "value": "10.55.76.0/25",
                                         "data_type": "BASE",
                                         "editables": {
                                             "value": true

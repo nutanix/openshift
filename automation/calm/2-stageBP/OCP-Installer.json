@@ -1167,7 +1167,7 @@
                     "container_spec": {}
                 },
                 {
-                    "name": "ProvisioningVM",
+                    "name": "Installer",
                     "description": "",
                     "port_list": [],
                     "singleton": false,
@@ -1194,20 +1194,20 @@
                             "type": "system",
                             "critical": true,
                             "runbook": {
-                                "name": "ProvisioningVM___create___runbook",
+                                "name": "Installer___create___runbook",
                                 "description": "",
                                 "main_task_local_reference": {
                                     "kind": "app_task",
-                                    "name": "ProvisioningVM___create___dag"
+                                    "name": "Installer___create___dag"
                                 },
                                 "task_definition_list": [
                                     {
-                                        "name": "ProvisioningVM___create___dag",
+                                        "name": "Installer___create___dag",
                                         "description": "",
                                         "type": "DAG",
                                         "target_any_local_reference": {
                                             "kind": "app_service",
-                                            "name": "ProvisioningVM"
+                                            "name": "Installer"
                                         },
                                         "attrs": {
                                             "edges": []
@@ -1227,20 +1227,20 @@
                             "type": "system",
                             "critical": true,
                             "runbook": {
-                                "name": "ProvisioningVM___start___runbook",
+                                "name": "Installer___start___runbook",
                                 "description": "",
                                 "main_task_local_reference": {
                                     "kind": "app_task",
-                                    "name": "ProvisioningVM___start___dag"
+                                    "name": "Installer___start___dag"
                                 },
                                 "task_definition_list": [
                                     {
-                                        "name": "ProvisioningVM___start___dag",
+                                        "name": "Installer___start___dag",
                                         "description": "",
                                         "type": "DAG",
                                         "target_any_local_reference": {
                                             "kind": "app_service",
-                                            "name": "ProvisioningVM"
+                                            "name": "Installer"
                                         },
                                         "attrs": {
                                             "edges": []
@@ -1261,7 +1261,7 @@
                                         "type": "EXEC",
                                         "target_any_local_reference": {
                                             "kind": "app_service",
-                                            "name": "ProvisioningVM"
+                                            "name": "Installer"
                                         },
                                         "attrs": {
                                             "script_type": "static",
@@ -1282,20 +1282,20 @@
                             "type": "system",
                             "critical": true,
                             "runbook": {
-                                "name": "ProvisioningVM___stop___runbook",
+                                "name": "Installer___stop___runbook",
                                 "description": "",
                                 "main_task_local_reference": {
                                     "kind": "app_task",
-                                    "name": "ProvisioningVM___stop___dag"
+                                    "name": "Installer___stop___dag"
                                 },
                                 "task_definition_list": [
                                     {
-                                        "name": "ProvisioningVM___stop___dag",
+                                        "name": "Installer___stop___dag",
                                         "description": "",
                                         "type": "DAG",
                                         "target_any_local_reference": {
                                             "kind": "app_service",
-                                            "name": "ProvisioningVM"
+                                            "name": "Installer"
                                         },
                                         "attrs": {
                                             "edges": []
@@ -1315,20 +1315,20 @@
                             "type": "system",
                             "critical": true,
                             "runbook": {
-                                "name": "ProvisioningVM___delete___runbook",
+                                "name": "Installer___delete___runbook",
                                 "description": "",
                                 "main_task_local_reference": {
                                     "kind": "app_task",
-                                    "name": "ProvisioningVM___delete___dag"
+                                    "name": "Installer___delete___dag"
                                 },
                                 "task_definition_list": [
                                     {
-                                        "name": "ProvisioningVM___delete___dag",
+                                        "name": "Installer___delete___dag",
                                         "description": "",
                                         "type": "DAG",
                                         "target_any_local_reference": {
                                             "kind": "app_service",
-                                            "name": "ProvisioningVM"
+                                            "name": "Installer"
                                         },
                                         "attrs": {
                                             "edges": []
@@ -1348,20 +1348,20 @@
                             "type": "system",
                             "critical": true,
                             "runbook": {
-                                "name": "ProvisioningVM___restart___runbook",
+                                "name": "Installer___restart___runbook",
                                 "description": "",
                                 "main_task_local_reference": {
                                     "kind": "app_task",
-                                    "name": "ProvisioningVM___restart___dag"
+                                    "name": "Installer___restart___dag"
                                 },
                                 "task_definition_list": [
                                     {
-                                        "name": "ProvisioningVM___restart___dag",
+                                        "name": "Installer___restart___dag",
                                         "description": "",
                                         "type": "DAG",
                                         "target_any_local_reference": {
                                             "kind": "app_service",
-                                            "name": "ProvisioningVM"
+                                            "name": "Installer"
                                         },
                                         "attrs": {
                                             "edges": []
@@ -1381,20 +1381,20 @@
                             "type": "system",
                             "critical": true,
                             "runbook": {
-                                "name": "ProvisioningVM___soft_delete___runbook",
+                                "name": "Installer___soft_delete___runbook",
                                 "description": "",
                                 "main_task_local_reference": {
                                     "kind": "app_task",
-                                    "name": "ProvisioningVM___soft_delete___dag"
+                                    "name": "Installer___soft_delete___dag"
                                 },
                                 "task_definition_list": [
                                     {
-                                        "name": "ProvisioningVM___soft_delete___dag",
+                                        "name": "Installer___soft_delete___dag",
                                         "description": "",
                                         "type": "DAG",
                                         "target_any_local_reference": {
                                             "kind": "app_service",
-                                            "name": "ProvisioningVM"
+                                            "name": "Installer"
                                         },
                                         "attrs": {
                                             "edges": []
@@ -1414,20 +1414,20 @@
                             "type": "user",
                             "critical": false,
                             "runbook": {
-                                "name": "ProvisioningVM_RemoveBootstrapfromLoadBalancer_runbook",
+                                "name": "Installer_RemoveBootstrapfromLoadBalancer_runbook",
                                 "description": "",
                                 "main_task_local_reference": {
                                     "kind": "app_task",
-                                    "name": "ProvisioningVM_RemoveBootstrapfromLoadBalancer_dag"
+                                    "name": "Installer_RemoveBootstrapfromLoadBalancer_dag"
                                 },
                                 "task_definition_list": [
                                     {
-                                        "name": "ProvisioningVM_RemoveBootstrapfromLoadBalancer_dag",
+                                        "name": "Installer_RemoveBootstrapfromLoadBalancer_dag",
                                         "description": "",
                                         "type": "DAG",
                                         "target_any_local_reference": {
                                             "kind": "app_service",
-                                            "name": "ProvisioningVM"
+                                            "name": "Installer"
                                         },
                                         "attrs": {
                                             "edges": []
@@ -1448,7 +1448,7 @@
                                         "type": "EXEC",
                                         "target_any_local_reference": {
                                             "kind": "app_service",
-                                            "name": "ProvisioningVM"
+                                            "name": "Installer"
                                         },
                                         "attrs": {
                                             "script_type": "sh",
@@ -1469,20 +1469,20 @@
                             "type": "user",
                             "critical": false,
                             "runbook": {
-                                "name": "ProvisioningVM_SaveHAProxyState_runbook",
+                                "name": "Installer_SaveHAProxyState_runbook",
                                 "description": "",
                                 "main_task_local_reference": {
                                     "kind": "app_task",
-                                    "name": "ProvisioningVM_SaveHAProxyState_dag"
+                                    "name": "Installer_SaveHAProxyState_dag"
                                 },
                                 "task_definition_list": [
                                     {
-                                        "name": "ProvisioningVM_SaveHAProxyState_dag",
+                                        "name": "Installer_SaveHAProxyState_dag",
                                         "description": "",
                                         "type": "DAG",
                                         "target_any_local_reference": {
                                             "kind": "app_service",
-                                            "name": "ProvisioningVM"
+                                            "name": "Installer"
                                         },
                                         "attrs": {
                                             "edges": []
@@ -1503,7 +1503,7 @@
                                         "type": "EXEC",
                                         "target_any_local_reference": {
                                             "kind": "app_service",
-                                            "name": "ProvisioningVM"
+                                            "name": "Installer"
                                         },
                                         "attrs": {
                                             "script_type": "sh",
@@ -2648,7 +2648,7 @@
                                     },
                                     "attrs": {
                                         "script_type": "sh",
-                                        "script": "#!/bin/bash -xe\n\necho \"\"\"#---------------------------------------------------------------------\n# Global settings\n#---------------------------------------------------------------------\nglobal\n\n    log         127.0.0.1 local2\n\n    chroot      /var/lib/haproxy\n    pidfile     /var/run/haproxy.pid\n    maxconn     4000\n    user        haproxy\n    group       haproxy\n    daemon\n\n    # utilize system-wide crypto-policies\n    ssl-default-bind-ciphers PROFILE=SYSTEM\n    ssl-default-server-ciphers PROFILE=SYSTEM\n\n\n    stats socket ipv4@0.0.0.0:9999 level admin\n    stats socket /var/run/haproxy.sock mode 666 level admin\n    stats timeout 2m\n    server-state-file /etc/haproxy/server_state\n\n#---------------------------------------------------------------------\n# common defaults that all the 'listen' and 'backend' sections will\n# use if not designated in their block\n#---------------------------------------------------------------------\n\ndefaults\n    load-server-state-from-file global\n    mode                    http\n    log                     global\n    option                  httplog\n    option                  dontlognull\n    option http-server-close\n    option forwardfor       except 127.0.0.0/8\n    option                  redispatch\n    retries                 3\n    timeout http-request    10s\n    timeout queue           1m\n    timeout connect         10s\n    timeout client          1m\n    timeout server          1m\n    timeout http-keep-alive 10s\n    timeout check           10s\n    maxconn                 3000\n\n\n#---------------------------------------------------------------------\n# Openshift config\n#---------------------------------------------------------------------\n\nlisten stats\n    bind :9000\n    mode http\n    stats enable\n    stats uri /\n    monitor-uri /healthz\n\n\nfrontend openshift-api-server\n    bind *:6443\n    default_backend openshift-api-server\n    mode tcp\n    option tcplog\n\nbackend openshift-api-server\n    balance source\n    mode tcp\n    server-template controlplane 0-2 localhost:6443 check disabled\n    server bootstrap localhost:6443 check\n\nfrontend machine-config-server\n    bind *:22623\n    default_backend machine-config-server\n    mode tcp\n    option tcplog\n\nbackend machine-config-server\n    balance source\n    mode tcp\n    server-template controlplane 0-2 localhost:22623 check disabled\n    server bootstrap localhost:22623 check\n\nfrontend ingress-http\n    bind *:80\n    default_backend ingress-http\n    mode tcp\n    option tcplog\n\nbackend ingress-http\n    balance source\n    mode tcp\n    server-template compute 0-99 localhost:80 check disabled\n    server-template controlplane 0-2 localhost:443 check disabled\n    \nfrontend ingress-https\n    bind *:443\n    default_backend ingress-https\n    mode tcp\n    option tcplog\n\nbackend ingress-https\n    balance source\n    mode tcp\n    server-template compute 0-99 localhost:443 check disabled\n    server-template controlplane 0-2 localhost:443 check disabled\n    \"\"\" | sudo tee /etc/haproxy/haproxy.cfg\n\nsudo systemctl enable haproxy\nsudo systemctl start haproxy"
+                                        "script": "#!/bin/bash -xe\n\necho \"\"\"#---------------------------------------------------------------------\n# Global settings\n#---------------------------------------------------------------------\nglobal\n\n    log         127.0.0.1 local2\n\n    chroot      /var/lib/haproxy\n    pidfile     /var/run/haproxy.pid\n    maxconn     4000\n    user        haproxy\n    group       haproxy\n    daemon\n\n    # utilize system-wide crypto-policies\n    ssl-default-bind-ciphers PROFILE=SYSTEM\n    ssl-default-server-ciphers PROFILE=SYSTEM\n\n\n    stats socket ipv4@0.0.0.0:9999 level admin\n    stats socket /var/run/haproxy.sock mode 666 level admin\n    stats timeout 2m\n    server-state-file /etc/haproxy/server_state\n\n#---------------------------------------------------------------------\n# common defaults that all the 'listen' and 'backend' sections will\n# use if not designated in their block\n#---------------------------------------------------------------------\n\ndefaults\n    load-server-state-from-file global\n    mode                    http\n    log                     global\n    option                  httplog\n    option                  dontlognull\n    option http-server-close\n    option forwardfor       except 127.0.0.0/8\n    option                  redispatch\n    retries                 3\n    timeout http-request    10s\n    timeout queue           1m\n    timeout connect         10s\n    timeout client          1m\n    timeout server          1m\n    timeout http-keep-alive 10s\n    timeout check           10s\n    maxconn                 3000\n\n\n#---------------------------------------------------------------------\n# Openshift config\n#---------------------------------------------------------------------\n\nlisten stats\n    bind :9000\n    mode http\n    stats enable\n    stats uri /\n    monitor-uri /healthz\n\n\nfrontend openshift-api-server\n    bind *:6443\n    default_backend openshift-api-server\n    mode tcp\n    option tcplog\n\nbackend openshift-api-server\n    mode tcp\n    server-template controlplane 0-2 localhost:6443 check disabled\n    server bootstrap localhost:6443 check\n\nfrontend machine-config-server\n    bind *:22623\n    default_backend machine-config-server\n    mode tcp\n    option tcplog\n\nbackend machine-config-server\n    balance source\n    mode tcp\n    server-template controlplane 0-2 localhost:22623 check disabled\n    server bootstrap localhost:22623 check\n\nfrontend ingress-http\n    bind *:80\n    default_backend ingress-http\n    mode tcp\n    option tcplog\n\nbackend ingress-http\n    balance source\n    mode tcp\n    server-template compute 0-99 localhost:80 check disabled\n    server-template controlplane 0-2 localhost:443 check disabled\n    \nfrontend ingress-https\n    bind *:443\n    default_backend ingress-https\n    mode tcp\n    option tcplog\n\nbackend ingress-https\n    balance source\n    mode tcp\n    server-template compute 0-99 localhost:443 check disabled\n    server-template controlplane 0-2 localhost:443 check disabled\n    \"\"\" | sudo tee /etc/haproxy/haproxy.cfg\n\nsudo systemctl enable haproxy\nsudo systemctl start haproxy"
                                     },
                                     "child_tasks_local_reference_list": [],
                                     "variable_list": [],
@@ -2758,25 +2758,25 @@
                     "version": ""
                 },
                 {
-                    "name": "ProvisioningVMPackage",
+                    "name": "InstallerPackage",
                     "description": "",
                     "type": "CUSTOM",
                     "options": {
                         "install_runbook": {
-                            "name": "ProvisioningVMPackage___install___runbook",
+                            "name": "InstallerPackage___install___runbook",
                             "description": "",
                             "main_task_local_reference": {
                                 "kind": "app_task",
-                                "name": "ProvisioningVMPackage___install___dag"
+                                "name": "InstallerPackage___install___dag"
                             },
                             "task_definition_list": [
                                 {
-                                    "name": "ProvisioningVMPackage___install___dag",
+                                    "name": "InstallerPackage___install___dag",
                                     "description": "",
                                     "type": "DAG",
                                     "target_any_local_reference": {
                                         "kind": "app_service",
-                                        "name": "ProvisioningVM"
+                                        "name": "Installer"
                                     },
                                     "attrs": {
                                         "edges": [
@@ -2882,7 +2882,7 @@
                                     "type": "EXEC",
                                     "target_any_local_reference": {
                                         "kind": "app_service",
-                                        "name": "ProvisioningVM"
+                                        "name": "Installer"
                                     },
                                     "attrs": {
                                         "script_type": "sh",
@@ -2903,7 +2903,7 @@
                                     "type": "EXEC",
                                     "target_any_local_reference": {
                                         "kind": "app_service",
-                                        "name": "ProvisioningVM"
+                                        "name": "Installer"
                                     },
                                     "attrs": {
                                         "script_type": "sh",
@@ -2920,7 +2920,7 @@
                                     "type": "SET_VARIABLE",
                                     "target_any_local_reference": {
                                         "kind": "app_service",
-                                        "name": "ProvisioningVM"
+                                        "name": "Installer"
                                     },
                                     "attrs": {
                                         "script_type": "static",
@@ -2940,12 +2940,12 @@
                                     "type": "CALL_RUNBOOK",
                                     "target_any_local_reference": {
                                         "kind": "app_service",
-                                        "name": "ProvisioningVM"
+                                        "name": "Installer"
                                     },
                                     "attrs": {
                                         "runbook_reference": {
                                             "kind": "app_runbook",
-                                            "name": "ProvisioningVM_RemoveBootstrapfromLoadBalancer_runbook"
+                                            "name": "Installer_RemoveBootstrapfromLoadBalancer_runbook"
                                         }
                                     },
                                     "child_tasks_local_reference_list": [],
@@ -2959,7 +2959,7 @@
                                     "type": "EXEC",
                                     "target_any_local_reference": {
                                         "kind": "app_service",
-                                        "name": "ProvisioningVM"
+                                        "name": "Installer"
                                     },
                                     "attrs": {
                                         "script_type": "sh",
@@ -2976,7 +2976,7 @@
                                     "type": "EXEC",
                                     "target_any_local_reference": {
                                         "kind": "app_service",
-                                        "name": "ProvisioningVM"
+                                        "name": "Installer"
                                     },
                                     "attrs": {
                                         "script_type": "sh",
@@ -2993,12 +2993,12 @@
                                     "type": "CALL_RUNBOOK",
                                     "target_any_local_reference": {
                                         "kind": "app_service",
-                                        "name": "ProvisioningVM"
+                                        "name": "Installer"
                                     },
                                     "attrs": {
                                         "runbook_reference": {
                                             "kind": "app_runbook",
-                                            "name": "ProvisioningVM_SaveHAProxyState_runbook"
+                                            "name": "Installer_SaveHAProxyState_runbook"
                                         }
                                     },
                                     "child_tasks_local_reference_list": [],
@@ -3010,20 +3010,20 @@
                             "variable_list": []
                         },
                         "uninstall_runbook": {
-                            "name": "Runbook_for_Package_ProvisioningVMPackage_action_uninstall",
+                            "name": "Runbook_for_Package_InstallerPackage_action_uninstall",
                             "description": "",
                             "main_task_local_reference": {
                                 "kind": "app_task",
-                                "name": "DAG_Task_for_Package_ProvisioningVMPackage_action_uninstall"
+                                "name": "DAG_Task_for_Package_InstallerPackage_action_uninstall"
                             },
                             "task_definition_list": [
                                 {
-                                    "name": "DAG_Task_for_Package_ProvisioningVMPackage_action_uninstall",
+                                    "name": "DAG_Task_for_Package_InstallerPackage_action_uninstall",
                                     "description": "",
                                     "type": "DAG",
                                     "target_any_local_reference": {
                                         "kind": "app_service",
-                                        "name": "ProvisioningVM"
+                                        "name": "Installer"
                                     },
                                     "attrs": {
                                         "edges": []
@@ -3040,7 +3040,7 @@
                     "service_local_reference_list": [
                         {
                             "kind": "app_service",
-                            "name": "ProvisioningVM"
+                            "name": "Installer"
                         }
                     ],
                     "variable_list": [],
@@ -3809,7 +3809,7 @@
                     }
                 },
                 {
-                    "name": "ProvisioningVMSubstrate",
+                    "name": "InstallerSubstrate",
                     "description": "",
                     "type": "EXISTING_VM",
                     "os_type": "Linux",
@@ -4064,7 +4064,7 @@
                             "default_replicas": "3",
                             "max_replicas": "3",
                             "type": "GREENFIELD",
-                            "name": "9df14f84_deployment",
+                            "name": "ControlPlaneDeployment",
                             "options": {},
                             "description": "",
                             "editables": {}
@@ -4088,7 +4088,7 @@
                             "default_replicas": "1",
                             "max_replicas": "1",
                             "type": "GREENFIELD",
-                            "name": "8ff9c0f1_deployment",
+                            "name": "LBDNSDeployment",
                             "options": {},
                             "description": "",
                             "editables": {}
@@ -4098,12 +4098,12 @@
                             "package_local_reference_list": [
                                 {
                                     "kind": "app_package",
-                                    "name": "ProvisioningVMPackage"
+                                    "name": "InstallerPackage"
                                 }
                             ],
                             "substrate_local_reference": {
                                 "kind": "app_substrate",
-                                "name": "ProvisioningVMSubstrate"
+                                "name": "InstallerSubstrate"
                             },
                             "depends_on_list": [],
                             "variable_list": [],
@@ -4112,7 +4112,7 @@
                             "default_replicas": "1",
                             "max_replicas": "1",
                             "type": "GREENFIELD",
-                            "name": "ProvisioningVMDeployment",
+                            "name": "InstallerDeployment",
                             "options": {},
                             "description": "",
                             "editables": {}
@@ -4136,7 +4136,7 @@
                             "default_replicas": "@@{COMPUTE_NODES}@@",
                             "max_replicas": "99",
                             "type": "GREENFIELD",
-                            "name": "4aff8c30_deployment",
+                            "name": "ComputeDeployment",
                             "options": {},
                             "description": "",
                             "editables": {}
@@ -4316,7 +4316,7 @@
                                         "type": "EXEC",
                                         "target_any_local_reference": {
                                             "kind": "app_service",
-                                            "name": "ProvisioningVM"
+                                            "name": "Installer"
                                         },
                                         "attrs": {
                                             "script_type": "sh",
@@ -4417,7 +4417,7 @@
                                         "type": "EXEC",
                                         "target_any_local_reference": {
                                             "kind": "app_service",
-                                            "name": "ProvisioningVM"
+                                            "name": "Installer"
                                         },
                                         "attrs": {
                                             "script_type": "sh",
@@ -4518,7 +4518,7 @@
                                         "type": "SCALING",
                                         "target_any_local_reference": {
                                             "kind": "app_blueprint_deployment",
-                                            "name": "4aff8c30_deployment"
+                                            "name": "ComputeDeployment"
                                         },
                                         "attrs": {
                                             "scaling_type": "SCALEOUT",
@@ -4535,12 +4535,12 @@
                                         "type": "CALL_RUNBOOK",
                                         "target_any_local_reference": {
                                             "kind": "app_service",
-                                            "name": "ProvisioningVM"
+                                            "name": "Installer"
                                         },
                                         "attrs": {
                                             "runbook_reference": {
                                                 "kind": "app_runbook",
-                                                "name": "ProvisioningVM_SaveHAProxyState_runbook"
+                                                "name": "Installer_SaveHAProxyState_runbook"
                                             }
                                         },
                                         "child_tasks_local_reference_list": [],
@@ -4623,7 +4623,7 @@
                                         "type": "SCALING",
                                         "target_any_local_reference": {
                                             "kind": "app_blueprint_deployment",
-                                            "name": "4aff8c30_deployment"
+                                            "name": "ComputeDeployment"
                                         },
                                         "attrs": {
                                             "scaling_type": "SCALEIN",
@@ -4640,12 +4640,12 @@
                                         "type": "CALL_RUNBOOK",
                                         "target_any_local_reference": {
                                             "kind": "app_service",
-                                            "name": "ProvisioningVM"
+                                            "name": "Installer"
                                         },
                                         "attrs": {
                                             "runbook_reference": {
                                                 "kind": "app_runbook",
-                                                "name": "ProvisioningVM_SaveHAProxyState_runbook"
+                                                "name": "Installer_SaveHAProxyState_runbook"
                                             }
                                         },
                                         "child_tasks_local_reference_list": [],
@@ -4717,8 +4717,8 @@
                             "dsl_name": "LBDNS",
                             "Action": {}
                         },
-                        "ProvisioningVM": {
-                            "dsl_name": "ProvisioningVM",
+                        "Installer": {
+                            "dsl_name": "Installer",
                             "Action": {
                                 "Remove Bootstrap from LoadBalancer": {
                                     "dsl_name": "RemoveBootstrapfromLoadBalancer"
@@ -4767,8 +4767,8 @@
                             "dsl_name": "LBDNSPackage",
                             "Action": {}
                         },
-                        "ProvisioningVMPackage": {
-                            "dsl_name": "ProvisioningVMPackage",
+                        "InstallerPackage": {
+                            "dsl_name": "InstallerPackage",
                             "Action": {}
                         },
                         "ComputePackage": {
@@ -4781,19 +4781,19 @@
                             "dsl_name": "BootstrapDeployment",
                             "Action": {}
                         },
-                        "9df14f84_deployment": {
+                        "ControlPlaneDeployment": {
                             "dsl_name": "ControlPlaneDeployment",
                             "Action": {}
                         },
-                        "8ff9c0f1_deployment": {
-                            "dsl_name": "_8ff9c0f1_deployment",
+                        "LBDNSDeployment": {
+                            "dsl_name": "LBDNSDeployment",
                             "Action": {}
                         },
-                        "ProvisioningVMDeployment": {
-                            "dsl_name": "ProvisioningVMDeployment",
+                        "InstallerDeployment": {
+                            "dsl_name": "InstallerDeployment",
                             "Action": {}
                         },
-                        "4aff8c30_deployment": {
+                        "ComputeDeployment": {
                             "dsl_name": "ComputeDeployment",
                             "Action": {}
                         }
@@ -4845,8 +4845,8 @@
                                 }
                             }
                         },
-                        "ProvisioningVMSubstrate": {
-                            "dsl_name": "ProvisioningVMSubstrate",
+                        "InstallerSubstrate": {
+                            "dsl_name": "InstallerSubstrate",
                             "Action": {}
                         },
                         "ComputeSubstrate": {
@@ -4869,7 +4869,7 @@
     },
     "api_version": "3.0",
     "metadata": {
-        "name": "OCP-Installer",
+        "name": "OCPInstaller",
         "kind": "blueprint",
         "categories": {},
         "spec_version": 1

@@ -1,6 +1,6 @@
 {
     "spec": {
-        "name": "NewOCPProvisioningVM",
+        "name": "OCPProvisioningVM",
         "description": "",
         "resources": {
             "type": "USER",
@@ -413,8 +413,8 @@
                                     "nic_type": "NORMAL_NIC",
                                     "subnet_reference": {
                                         "kind": "subnet",
-                                        "name": "default",
-                                        "uuid": "00000000-0000-0000-0000-000000000000"
+                                        "name": "Primary",
+                                        "uuid": "1ff88f51-089a-4233-af58-83192aefceed"
                                     },
                                     "network_function_chain_reference": null,
                                     "mac_address": "",
